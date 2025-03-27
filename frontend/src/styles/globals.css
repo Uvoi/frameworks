@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@import "tailwindcss/utilities";
+
+/* Вариант для темной темы */
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+
+
+body {
+  /* background-color: var(--color-background);
+  color: var(--color-foreground); */
+  @apply transition-colors duration-300;
+}
+
+
+
+
+/* Темная тема */
+@custom-media --dark (prefers-color-scheme: dark);
+
+
+
+/* Tailwind использует это для генерации классов */
+@theme {
+  --color-primary: #05FA00;
+  --color-secondary: #009b86;
+  --color-background: #ffffff;
+  --color-foreground: #111111;
+  --color-menu: #f4f4f5;
+  --color-card: #f4f4f5;
+  --color-accent: #81004b;
+  --color-muted: #6b7280;
+}
+
+/* Светлая тема — переменные берутся из @theme */
+:root {
+  --color-primary: #026300;
+  --color-secondary: #009b86;
+  --color-background: #ffffff;
+  --color-foreground: #111111;
+  --color-menu: #f4f4f5;
+  --color-card: #f4f4f5;
+  --color-accent: #81004b;
+  --color-muted: #6b7280;
+  color-scheme: light;
+}
+
+/* Темная тема — можно переопределить только нужное */
+.dark {
+  --color-primary: #05FA00;
+  --color-secondary: #009b86;
+  --color-background: #0d0014;
+  --color-foreground: #f0f0f0;
+  --color-menu: #14001b;
+  --color-card: #24002d;
+  --color-accent: #f50082;
+  --color-muted: #9ca3af;
+  color-scheme: dark;
+}

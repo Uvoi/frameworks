@@ -1,0 +1,20 @@
+# Используем Node.js
+FROM node:18
+
+# Создаем рабочую директорию
+WORKDIR /app
+
+# Копируем package.json и package-lock.json
+COPY package*.json ./
+
+# Устанавливаем зависимости
+RUN npm install
+
+# Копируем исходники
+COPY . .
+
+# Открываем порт
+EXPOSE 3000
+
+# Запускаем dev-сервер
+CMD ["npm", "run", "dev"]
