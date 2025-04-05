@@ -1,5 +1,3 @@
-// db/prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,8 +10,37 @@ datasource db {
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  username      String  
+  username  String
   password  String
   createdAt DateTime @default(now())
+  measurements measurement[]
+  trainings   Training[]
 }
 
+model measurement {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  steps       Int
+  distance    Float
+  calories    Float
+  pulse       Int
+  sleep       Float
+  temperature Float
+  oxygen      Float
+  date        DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Training {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  startTime   DateTime
+  duration    Int // длительность в минутах
+  calories    Float
+  pulse       Int
+  temperature Float
+  oxygen      Float
+
+  user        User     @relation(fields: [userId], references: [id])
+}
