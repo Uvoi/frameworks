@@ -1,6 +1,5 @@
 "use client";
 
-import { ComponentType, SVGProps } from "react";
 import Widget from "./Widget";
 import { LucideIcon } from "lucide-react";
 
