@@ -13,6 +13,7 @@ import {
 
 // Импорт редьюсеров
 import themeReducer from "./themeSlice";
+import authReducer from "./authSlice";
 
 // Конфигурация redux-persist
 const persistConfig = {
@@ -22,6 +23,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   theme: themeReducer, // Добавляем тему в хранилище
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -34,7 +36,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }), // thunk уже включен в getDefaultMiddleware()
+    }),
 });
 
 export const persistor = persistStore(store);
