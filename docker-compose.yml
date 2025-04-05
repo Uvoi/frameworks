@@ -1,0 +1,84 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 0
+      POSTGRES_DB: workout
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  auth-service:
+    build:
+      context: ./backend
+      dockerfile: ./auth-service/Dockerfile
+    container_name: auth-service
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://postgres:0@postgres:5432/workout
+      - JWT_SECRET=supersecret
+
+  measurements-service:
+    build:
+      context: ./backend
+      dockerfile: ./measurements-service/Dockerfile
+    container_name: measurements-service
+    ports:
+      - "3002:3002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://postgres:0@postgres:5432/workout
+
+  training-service:
+    build:
+      context: ./backend
+      dockerfile: ./training-service/Dockerfile
+    container_name: training-service
+    ports:
+      - "3003:3003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://postgres:0@postgres:5432/workout
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://nginx:80/api/auth
+    depends_on:
+      - auth-service
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - auth-service
+      - measurements-service
+      - training-service
+
+volumes:
+  postgres_data:

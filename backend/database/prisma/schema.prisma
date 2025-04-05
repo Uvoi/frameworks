@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:0@localhost:5432/workout"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String
+  password  String
+  createdAt DateTime @default(now())
+  measurements measurement[]
+  trainings   Training[]
+}
+
+model measurement {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  steps       Int
+  distance    Float
+  calories    Float
+  pulse       Int
+  sleep       Float
+  temperature Float
+  oxygen      Float
+  date        DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Training {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  startTime   DateTime
+  duration    Int // длительность в минутах
+  calories    Float
+  pulse       Int
+  temperature Float
+  oxygen      Float
+
+  user        User     @relation(fields: [userId], references: [id])
+}
