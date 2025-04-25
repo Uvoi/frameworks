@@ -1,0 +1,18 @@
+.log_reg_form 
+{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 50%;
+    align-items: center;
+    height: 35vh;
+}
+
+.log_reg_form input
+{
+    width: 60%;
+    border: 2px solid var(--color-foreground);
+    border-radius: 5px;
+    padding: 5px 8px;
+}

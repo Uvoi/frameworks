@@ -1,0 +1,88 @@
+.rbc-day-bg
+{
+    background-color: var(--color-card);
+}
+
+.rbc-off-range-bg
+{
+    background-color: unset;
+}
+
+.rbc-button-link
+{
+    color: var(--color-foreground);
+}
+
+.rbc-btn-group button
+{
+    background-color: var(--color-secondary);
+    color: var(--color-foreground);
+}
+
+.rbc-btn-group button:hover, .rbc-btn-group button:active, .rbc-btn-group button:focus
+{
+    background-color: var(--color-accent);
+    color: var(--color-foreground);
+}
+
+.rbc-row-segment
+{
+    height: 100%;
+    padding: 5px;
+}
+
+
+.rbc-row-content
+{
+    height: 100%;
+}
+
+.rbc-row:nth-child(1)
+{
+    height: unset;
+    margin: unset;
+}
+
+.rbc-row
+{
+    height: 100%;
+    margin-top: -1.5em;
+}
+
+.rbc-event
+{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+    overflow: hidden;
+}
+
+.rbc-event:hover
+{
+    background-color: var(--color-accent);
+}
+
+.rbc-event.rbc-selected
+{
+    background-color: var(--color-accent);
+}
+
+
+.rbc-date-cell
+{
+    z-index: 10;
+}
+
+
+.rbc-now button
+{
+    color: var(--color-primary);
+}
+
+.ActivityCalendar .rbc-event-content
+{
+    word-break: break-all;
+    white-space: unset;
+}

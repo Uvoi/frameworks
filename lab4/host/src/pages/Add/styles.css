@@ -1,0 +1,7 @@
+.AddWorkout input, .addMeasurements input
+{
+    border: 2px solid var(--color-foreground);
+    border-radius: 5px;
+    padding: 5px 8px;
+    width: 100%;
+}
